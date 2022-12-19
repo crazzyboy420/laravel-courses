@@ -1,0 +1,110 @@
+<?php
+
+namespace Database\Seeders;
+
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Author;
+use App\Models\Course;
+use App\Models\Level;
+use App\Models\platform;
+use App\Models\Series;
+use App\Models\Topic;
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     *
+     * @return void
+     */
+    public function run()
+    {
+         \App\Models\User::factory(10)->create();
+
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+
+
+        //Levels seed
+
+        $lavels = ['Beginner','Intermediate','Advanced'];
+        foreach ($lavels as $lavel){
+            Level::create([
+                'name'=>$lavel,
+            ]);
+        }
+
+        //platforms seed
+
+        $platforms = ['Laracasts','Youtube','Laravel Daily','Codecourse','Spatie'];
+        foreach ($platforms as $platform){
+            platform::create([
+                'name'=>$platform,
+            ]);
+        }
+
+        $series = [
+            [
+                'name'=>'Laravel',
+                'url' => 'https://logos-download.com/wp-content/uploads/2016/09/Laravel_logo_wordmark_logotype-700x173.png'
+            ],
+            [
+                'name'=>'PHP',
+                'url' => 'https://toppng.com/uploads/preview/php-logo-filled-png-115360039248bye41xqdx.png'
+            ],
+            [
+                'name'=>'Vue js',
+                'url' => 'https://masteringjs.io/assets/images/vue/vue-spelled-out.png'
+            ],
+            [
+            'name'=>'React js',
+            'url' => 'https://logos-download.com/wp-content/uploads/2016/09/React_logo_wordmark-700x235.png'
+            ],
+        [
+        'name'=>'Javascript',
+            'url' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/JavaScript_logo.svg/786px-JavaScript_logo.svg.png'
+        ],
+            [
+                'name'=>'Symfony',
+                'url' => 'https://symfony.com/logos/symfony_black_02.png'
+            ]
+        ];
+
+
+        foreach ($series as $series){
+            Series::create([
+                'name'=>$series['name'],
+                'url' =>$series['url']
+            ]);
+        }
+        $topics = ['Eloquent','Validation','Refactoring','Testing','Authentication'];
+        foreach ($topics as $topic){
+            Topic::create([
+                'name'=>$topic
+            ]);
+        }
+
+        Author::factory(10)->create();
+
+        Course::factory(50)->create();
+
+
+        $courses = Course::all();
+
+        foreach ($courses as $course) {
+            $topic_id_array = Topic::all()->random(rand(1,5))->pluck('id')->toArray();
+            $course->topics()->attach($topic_id_array);
+
+            $authors_id_array = Author::all()->random(rand(1,10))->pluck('id')->toArray();
+            $course->authors()->attach($authors_id_array);
+
+            $series_id_array = Series::all()->random(rand(1,5))->pluck('id')->toArray();
+            $course->series()->attach($series_id_array);
+        }
+
+
+    }
+}
