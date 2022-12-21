@@ -3,7 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
-
+use App\Http\Controllers\TopicsController;
+use App\Http\Controllers\PlatformContrller;
+use App\Http\Controllers\LevelsController;
+use App\Http\Controllers\SeriesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +20,13 @@ use App\Http\Controllers\CourseController;
 
 Route::get('/', [CourseController::class,'index'])->name('home');
 
-Route::get('course/{id}',[CourseController::class,'show']);
+Route::get('/course/{slug}',[CourseController::class,'show'])->name('course');
+Route::get('/courses',[CourseController::class,'courses'])->name('courses');
+Route::get('/books',[CourseController::class,'books'])->name('books');
+Route::get('/topics/{slug}',[TopicsController::class,'index'])->name('topics');
+Route::get('/platform/{slug}',[PlatformContrller::class,'index'])->name('platform');
+Route::get('/level/{slug}',[LevelsController::class,'index'])->name('level');
+Route::get('/series/{slug}',[SeriesController::class,'index'])->name('series');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

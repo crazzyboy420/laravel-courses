@@ -41,5 +41,7 @@ class Course extends Model
             return '10+ hours';
         }
     }
+
+
 }
 

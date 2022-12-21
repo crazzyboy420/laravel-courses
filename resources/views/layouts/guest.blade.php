@@ -6,15 +6,14 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
-
+        <link rel="stylesheet" href="{{asset('css/app.css')}}">
+        <script src="{{asset('js/app.js')}}"></script>
         <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
     <div class="bg-body">
+        <div class="{{request()->routeIs('home') ? '':'bg-white border-b border-gray-100 shadow-2'}}">
         <div class="container mx-auto">
             <!--Header Section-->
             <header class="flex h-16 justify-between items-center">
@@ -23,8 +22,8 @@
                         <img class="w-56" src="https://laravel-courses.com/img/logo.png?1.0" alt="Logo">
                     </a>
                     <nav class="hidden h-16 space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <a href="courses.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-base font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition">Courses</a>
-                        <a href="courses.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-base font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition">Books</a>
+                        <a href="{{route('courses')}}" class="inline-flex items-center px-1 pt-1 border-b-2 {{request()->routeIs('courses')?'border-indigo-400':'border-transparent'}} text-base font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition">Courses</a>
+                        <a href="{{route('books')}}" class="inline-flex items-center px-1 pt-1 border-b-2  {{request()->routeIs('books')?'border-indigo-400':'border-transparent'}} text-base font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition">Books</a>
                     </nav>
                 </div>
 
@@ -35,7 +34,7 @@
                 </div>
             </header>
         </div>
-
+        </div>
 
             {{ $slot }}
         <!--Email Subscribe section-->

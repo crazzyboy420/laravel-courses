@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
         foreach ($lavels as $lavel){
             Level::create([
                 'name'=>$lavel,
+                'slug' => fake()->slug,
             ]);
         }
 
@@ -43,6 +44,7 @@ class DatabaseSeeder extends Seeder
         foreach ($platforms as $platform){
             platform::create([
                 'name'=>$platform,
+                'slug' => fake()->slug,
             ]);
         }
 
@@ -77,17 +79,19 @@ class DatabaseSeeder extends Seeder
         foreach ($series as $series){
             Series::create([
                 'name'=>$series['name'],
-                'url' =>$series['url']
+                'url' =>$series['url'],
+                'slug' => fake()->slug,
             ]);
         }
         $topics = ['Eloquent','Validation','Refactoring','Testing','Authentication'];
         foreach ($topics as $topic){
             Topic::create([
-                'name'=>$topic
+                'name'=>$topic,
+                'slug'=>fake()->slug,
             ]);
         }
 
-        Author::factory(10)->create();
+        Author::factory(5)->create();
 
         Course::factory(50)->create();
 
@@ -98,7 +102,7 @@ class DatabaseSeeder extends Seeder
             $topic_id_array = Topic::all()->random(rand(1,5))->pluck('id')->toArray();
             $course->topics()->attach($topic_id_array);
 
-            $authors_id_array = Author::all()->random(rand(1,10))->pluck('id')->toArray();
+            $authors_id_array = Author::all()->random(rand(1,5))->pluck('id')->toArray();
             $course->authors()->attach($authors_id_array);
 
             $series_id_array = Series::all()->random(rand(1,5))->pluck('id')->toArray();

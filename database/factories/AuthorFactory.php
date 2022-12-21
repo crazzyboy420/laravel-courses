@@ -18,7 +18,7 @@ class AuthorFactory extends Factory
     {
         return [
            'name'=> fake()->name,
-           'gravatar_link' =>fake()->imageUrl,
+           'email' =>fake()->email,
            'twitter_link' => fake()->url,
             'github_link' => fake()->url,
             'website_link' => fake()->url,

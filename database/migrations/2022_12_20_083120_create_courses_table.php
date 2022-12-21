@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
+            $table->string('slug','256');
             $table->string('title','256');
             $table->unsignedBigInteger('type')->default(0)->comment("0=video,1=book");
             $table->unsignedBigInteger('resources')->default(1)->comment('Resource Count');

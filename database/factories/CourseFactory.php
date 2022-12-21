@@ -21,10 +21,11 @@ class CourseFactory extends Factory
     {
         return [
             'title'=>fake()->text(40),
+            'slug'=>fake()->slug(),
             'type' =>rand(0,1),
             'resources'=> rand(0,10),
             'duration'=> rand(0,2),
-            'price'   => rand(1.00,50.00),
+            'price'   => rand(0, 1) ? rand(1, 100) : 0.00,
             'year'  => fake()->year,
             'description' => fake()->paragraphs(3,true),
             'image_url' => fake()->imageUrl,
