@@ -27,7 +27,6 @@ class CourseController extends Controller
         $platform = platform::with('courses')->get();
         $levels = Level::with('courses')->get();
         $Series = Series::with('courses')->get();
-
         return view('course.courses',[
             'courses'=>$courses,
             'platform'=>$platform,
@@ -40,6 +39,7 @@ class CourseController extends Controller
         $platform = platform::with('courses')->get();
         $levels = Level::with('courses')->get();
         $Series = Series::with('courses')->get();
+        $reviews = platform::with('courses')->get();
 
         return view('course.courses',[
             'courses'=>$courses,
@@ -79,12 +79,13 @@ class CourseController extends Controller
      */
     public function show($slug)
     {
-        $course = Course::where('slug',$slug)->with(['platform','topics','submittedBy','level','authors','series'])->first();
+        $course = Course::where('slug',$slug)->with(['topics','submittedBy','level','authors','reviews'])->first();
         if (empty($course)){
             return abort(404);
         }
+//        return $course;
         return  view('course.single',[
-            'course'=>$course
+            'course'=>$course,
         ]);
     }
 

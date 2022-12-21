@@ -29,8 +29,44 @@
 
                 <!--Signup&login button-->
                 <div class="flex items-center">
-                    <a href="#" class="text-sm font-medium text-gray-500 hover:text-gray-900">Sign in</a>
-                    <a href="#" class="ml-8 inline-flex items-center justify-center rounded border border-transparent bg-black px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-500">Sign up</a>
+                    @if(Auth::check())
+                        <div class="ml-3 relative">
+                            <div class="relative" x-data="{ open: false }">
+                                <div @click="open = ! open">
+                                    <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                        <img class="h-8 w-8 rounded-full object-cover" src="{{Gravatar::get(Auth::user()->email)}}" alt="{{Auth::user()->name}}">
+                                    </button>
+                                </div>
+
+                                <div x-show="open" class="absolute z-50 mt-2 w-48 rounded-md shadow-lg origin-top-right right-0" @click="open = false">
+                                    <div class="rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white">
+                                        <!-- Account Management -->
+                                        <div class="block px-4 py-2 text-xs text-gray-400">
+                                            Manage Account
+                                        </div>
+
+                                        <a class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition" href="{{route('profile.edit')}}">Profile</a>
+                                        <a class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition" href="#">Submit Course</a>
+                                        @if(Auth::user()->role===1)
+                                        <a class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition" href="{{route('dashboard')}}">Dashboard</a>
+                                        @endif
+
+
+                                        <div class="border-t border-gray-100"></div>
+
+                                        <!-- Authentication -->
+                                        <form method="POST" action="{{route('logout')}}">
+                                            @csrf
+                                            <button class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition">Log Out</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                    <a href="{{route('login')}}" class="text-sm font-medium text-gray-500 hover:text-gray-900">Sign in</a>
+                    <a href="{{route('register')}}" class="ml-8 inline-flex items-center justify-center rounded border border-transparent bg-black px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-500">Sign up</a>
+                    @endif
                 </div>
             </header>
         </div>

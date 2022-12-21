@@ -7,6 +7,7 @@ use App\Http\Controllers\TopicsController;
 use App\Http\Controllers\PlatformContrller;
 use App\Http\Controllers\LevelsController;
 use App\Http\Controllers\SeriesController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,14 +29,12 @@ Route::get('/platform/{slug}',[PlatformContrller::class,'index'])->name('platfor
 Route::get('/level/{slug}',[LevelsController::class,'index'])->name('level');
 Route::get('/series/{slug}',[SeriesController::class,'index'])->name('series');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 });
 
 require __DIR__.'/auth.php';

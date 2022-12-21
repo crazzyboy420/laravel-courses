@@ -43,23 +43,23 @@
                     </div>
                     <div class="flex items-center gap-3 mt-5">
                         <div class="flex items-center space-x-px">
-                            <svg class="w-4 h-4 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <svg class="w-4 h-4 {{$course->reviewsCalculation($course->reviews) >=1?'text-yellow-400':'text-gray-300'}}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"></path>
                             </svg>
-                            <svg class="w-4 h-4 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <svg class="w-4 h-4 {{$course->reviewsCalculation($course->reviews)>=2?'text-yellow-400':'text-gray-300'}}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"></path>
                             </svg>
-                            <svg class="w-4 h-4 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <svg class="w-4 h-4 {{$course->reviewsCalculation($course->reviews)>=3?'text-yellow-400':'text-gray-300'}}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"></path>
                             </svg>
-                            <svg class="w-4 h-4 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <svg class="w-4 h-4 {{$course->reviewsCalculation($course->reviews) >=4?'text-yellow-400':'text-gray-300'}}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"></path>
                             </svg>
-                            <svg class="w-4 h-4 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <svg class="w-4 h-4 {{$course->reviewsCalculation($course->reviews) >=5?'text-yellow-400':'text-gray-300'}}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"></path>
                             </svg>
                         </div>
-                        <a href="#reviews" class="text-sm text-gray-500"> 0 Reviews </a>
+                        <a href="#reviews" class="text-sm text-gray-500"> {{count($course->reviews)>1 ? count($course->reviews).' Reviews': count($course->reviews) . ' Review'}}  </a>
                     </div>
                     <ul class="flex flex-wrap items-center gap-4 mt-5 text-gray-700">
                         <li class="flex items-center gap-2">
@@ -86,7 +86,48 @@
                     </div>
                     <p class="mt-12">{{$course->description}}</p>
                     <h2 class="mt-4 pt-4 text-lg font-bold text-gray-900">Reviews</h2>
-                    <p class="mt-2 bg-white rounded-sm shadow p-6">No review yet.</p>
+                    <ul class="space-y-6 mt-4">
+                        @foreach($course->reviews as $review)
+                        <li class="bg-white rounded-sm shadow">
+                            <div class="px-6 py-5">
+                                <div class="sm:flex sm:items-center sm:justify-between">
+                                    <div class="flex items-center">
+                                        <div class="flex items-center space-x-px">
+                                            <div class="flex items-center space-x-px">
+                                                <svg class="w-4 h-4 {{$review->star >=1?'text-yellow-400':'text-gray-300'}}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                <svg class="w-4 h-4 {{$review->star >=2?'text-yellow-400':'text-gray-300'}}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                <svg class="w-4 h-4 {{$review->star>=3?'text-yellow-400':'text-gray-300'}}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                <svg class="w-4 h-4 {{$review->star >=4?'text-yellow-400':'text-gray-300'}}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                <svg class="w-4 h-4 {{$review->star >=5?'text-yellow-400':'text-gray-300'}}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p class="text-sm mt-2.5 sm:mt-0 font-normal text-gray-400">{{date('M d, Y', strtotime($review->created_at))}}</p>
+                                </div>
+
+                                <blockquote class="mt-4 sm:mt-6">
+                                    <p class="text-base font-normal leading-7 text-gray-600">{{$review->comment}}</p>
+                                </blockquote>
+
+                                <div class="flex items-center mt-5 sm:mt-8">
+                                    <img class="flex-shrink-0 w-6 h-6 bg-gray-300 rounded-full mr-1" src="{{Gravatar::get($review->author->email)}}" alt="{{$review->author->name}}">
+                                    <span class="ml-2.5 text-sm font-medium text-gray-900"> {{$review->author->name}} </span>
+                                </div>
+                            </div>
+                        </li>
+                        @endforeach
+                    </ul>
                 </div>
 
 

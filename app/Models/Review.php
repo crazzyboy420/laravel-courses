@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Review extends Model
 {
     use HasFactory;
+
+    function author(){
+        return $this->belongsTo(User::class,'review_by');
+    }
 }

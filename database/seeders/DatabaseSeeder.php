@@ -7,8 +7,10 @@ use App\Models\Author;
 use App\Models\Course;
 use App\Models\Level;
 use App\Models\platform;
+use App\Models\Review;
 use App\Models\Series;
 use App\Models\Topic;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,6 +22,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+        User::create([
+            'name' => 'Admin',
+            'email' => 'raselbabu34.bd@gmail.com',
+            'role'  => 1,
+            'password' =>  bcrypt('password'),
+        ]);
+        User::create([
+            'name' => 'Rasel',
+            'email' => 'rasel@gmail.com',
+            'password' =>  bcrypt('password'),
+        ]);
          \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
@@ -108,6 +122,8 @@ class DatabaseSeeder extends Seeder
             $series_id_array = Series::all()->random(rand(1,5))->pluck('id')->toArray();
             $course->series()->attach($series_id_array);
         }
+
+        Review::factory(300)->create();
 
 
     }

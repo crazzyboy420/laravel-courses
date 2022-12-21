@@ -30,6 +30,9 @@ class Course extends Model
     function series(){
         return $this->belongsToMany(Series::class,'course_series','course_id','series_id');
     }
+    function reviews(){
+        return $this->hasMany(Review::class);
+    }
 
 
     function getDuration($val){
@@ -40,6 +43,20 @@ class Course extends Model
         }else{
             return '10+ hours';
         }
+    }
+
+    function reviewsCalculation($reviews){
+        $totalStar = 0;
+        foreach ($reviews as $review) {
+            $totalStar += $review->star;
+        }
+        if (count($reviews)!=0){
+            $star = $totalStar / count($reviews);
+        }else{
+            $star = 0;
+        }
+
+        return $star;
     }
 
 
