@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 class LevelsController extends Controller
 {
     public function index($slug){
-        $level = Level::where('slug',$slug)->with('courses')->first();
+        $level = Level::where('slug',$slug)->first();
+        $courses = $level->courses()->paginate(12);
 
-        return view('archive.single',['archive'=>$level]);
+        return view('archive.single',['archive'=>$level,'courses'=>$courses]);
     }
 }

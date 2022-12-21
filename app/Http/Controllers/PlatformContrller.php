@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 class PlatformContrller extends Controller
 {
     public function index($slug){
-        $topic_course = platform::where('slug',$slug)->with('courses')->first();
+        $platform = platform::where('slug',$slug)->first();
+        $courses = $platform->courses()->paginate(12);
 
-        return view('archive.single',['archive'=>$topic_course]);
+        return view('archive.single',['archive'=>$platform,'courses'=>$courses]);
     }
 }

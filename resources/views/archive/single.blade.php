@@ -6,11 +6,13 @@
 
 
                 <div class="max-w-7xl w-full grid grid-cols-3 gap-10  mx-auto">
-                    @foreach($archive->courses as $course)
+                    @foreach($courses as $course)
                         @include('components.course-box',['course'=>$course])
                     @endforeach
                 </div>
-
+              <div class="mt-6">
+                  {{$courses->links()}}
+              </div>
             </div>
         </div>
     </x-guest-layout>

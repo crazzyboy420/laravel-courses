@@ -53,4 +53,7 @@
            </div>
        </section>
    </div>
+
+    <!--Subscribe Form-->
+    @include('components.subscribe-form')
 </x-guest-layout>
