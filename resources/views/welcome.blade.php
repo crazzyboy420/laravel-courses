@@ -1,4 +1,4 @@
-<x-guest-layout :courses="$courses">
+<x-guest-layout>
    <div class="container mx-auto">
        <!--Hero Section-->
        <div>
@@ -31,7 +31,7 @@
            <ul class="flex items-center flex-nowrap justify-between gap-y-7 gap-3">
                @foreach($series as $item)
                <li class="w-full lg:max-w-[165px]">
-                   <a href="{{route('series',$item->slug)}}" class="bg-white border mx-auto border-orange box-shadow w-full h-12 md:h-16 rounded-lg flex items-center justify-center">
+                   <a href="{{route('archive',['series',$item->slug])}}" class="bg-white border mx-auto border-orange box-shadow w-full h-12 md:h-16 rounded-lg flex items-center justify-center">
                        <img src="{{$item->url}}" alt="{{$item->name}}" class="w-20 md:w-auto max-h-12 h-auto object-contain">
                    </a>
                </li>

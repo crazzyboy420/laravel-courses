@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -9,7 +10,6 @@
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
         <script src="{{asset('js/app.js')}}"></script>
         <!-- Fonts -->
-
     </head>
     <body>
     <div class="bg-body">
@@ -79,83 +79,58 @@
                     <div>
                         <h2 class="text-lg-primary-2 text-white">Course by Series</h2>
                         <ul class="mt-5">
-                            <li class="mb-2">
-                                <a href="#" class="text-links text-gray-100 text-base before:text-gray-100">Laravel</a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-links text-gray-100 text-base before:text-gray-100">PHP</a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-links text-gray-100 text-base before:text-gray-100">Livewire</a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-links text-gray-100 text-base before:text-gray-100">Vue.js</a>
-                            </li>
+                            @foreach($series as $series)
+                                <li class="mb-2">
+                                    <a href="{{route('archive',['series',$series->slug])}}" class="text-links text-gray-100 text-base before:text-gray-100">{{$series->name}}</a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                     <div>
                         <h2 class="text-lg-primary-2 text-white">Course by Duration</h2>
                         <ul class="mt-5">
                             <li class="mb-2">
-                                <a href="#" class="text-links text-gray-100 text-base before:text-gray-100">1-5 hours</a>
+                                <a href="{{route('archive',['duration','1-5-hours'])}}" class="text-links text-gray-100 text-base before:text-gray-100">1-5 hours</a>
                             </li>
                             <li class="mb-2">
-                                <a href="#" class="text-links text-gray-100 text-base before:text-gray-100">5-10 hours</a>
+                                <a href="{{route('archive',['duration','5-10-hours'])}}" class="text-links text-gray-100 text-base before:text-gray-100">5-10 hours</a>
                             </li>
                             <li class="mb-2">
-                                <a href="#" class="text-links text-gray-100 text-base before:text-gray-100">10+ hours</a>
+                                <a href="{{route('archive',['duration','10-plus-hours'])}}" class="text-links text-gray-100 text-base before:text-gray-100">10+ hours</a>
                             </li>
                         </ul>
                     </div>
                     <div>
                         <h2 class="text-lg-primary-2 text-white">Course by Level</h2>
                         <ul class="mt-5">
+                            @foreach($levels as $level)
                             <li class="mb-2">
-                                <a href="#" class="text-links text-gray-100 text-base before:text-gray-100">Beginner</a>
+                                <a href="{{route('archive',['level',$level->slug])}}" class="text-links text-gray-100 text-base before:text-gray-100">{{$level->name}}</a>
                             </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-links text-gray-100 text-base before:text-gray-100">Intermediate</a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-links text-gray-100 text-base before:text-gray-100">Advanced</a>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
                     <div>
                         <h2 class="text-lg-primary-2 text-white">Course by Platform</h2>
                         <ul class="mt-5">
+                            @foreach($platforms as $platform)
                             <li class="mb-2">
-                                <a href="#" class="text-links text-gray-100 text-base before:text-gray-100">Laracasts</a>
+                                <a href="{{route('archive',['platform',$platform->slug])}}" class="text-links text-gray-100 text-base before:text-gray-100">{{$platform->name}}</a>
                             </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-links text-gray-100 text-base before:text-gray-100">Laravel Daily</a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-links text-gray-100 text-base before:text-gray-100">Codecourse</a>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
                     <div>
                         <h2 class="text-lg-primary-2 text-white">Course by Topics</h2>
                         <ul class="mt-5">
+                            @foreach($topics as $topic)
                             <li class="mb-2">
-                                <a href="#" class="text-links text-gray-100 text-base before:text-gray-100">Eloquent</a>
+                                <a href="{{route('archive',['topic',$topic->slug])}}" class="text-links text-gray-100 text-base before:text-gray-100">{{$topic->name}}</a>
                             </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-links text-gray-100 text-base before:text-gray-100">Validation</a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-links text-gray-100 text-base before:text-gray-100">Refactoring</a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="#" class="text-links text-gray-100 text-base before:text-gray-100">Testing</a>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
-
-
-
 
                 <!--footer bottom -->
                 <div class="mx-auto container flex items-center justify-between gap-5 pb-8">
@@ -168,7 +143,7 @@
                             </a>
                         </li>
                     </ul>
-                    <p class="text-sm  text-center text-[#E5E5E580] leading-5 z-50 relative"> Developed by <a href="https://twitter.com/phpfour" target="_blank" class="hover:underline font-medium">Mohammad Emran ⚡️</a></p>
+                    <p class="text-sm  text-center text-[#E5E5E580] leading-5 z-50 relative"> Developed by <a href="https://twitter.com/phpfour" target="_blank" class="hover:underline font-medium">Rasel Ahmed⚡️</a></p>
                     <span></span>
                 </div>
             </footer>

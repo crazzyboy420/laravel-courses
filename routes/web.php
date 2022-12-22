@@ -8,6 +8,7 @@ use App\Http\Controllers\PlatformContrller;
 use App\Http\Controllers\LevelsController;
 use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ArchiveController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,10 +25,7 @@ Route::get('/', [CourseController::class,'index'])->name('home');
 Route::get('/course/{slug}',[CourseController::class,'show'])->name('course');
 Route::get('/courses',[CourseController::class,'courses'])->name('courses');
 Route::get('/books',[CourseController::class,'books'])->name('books');
-Route::get('/topics/{slug}',[TopicsController::class,'index'])->name('topics');
-Route::get('/platform/{slug}',[PlatformContrller::class,'index'])->name('platform');
-Route::get('/level/{slug}',[LevelsController::class,'index'])->name('level');
-Route::get('/series/{slug}',[SeriesController::class,'index'])->name('series');
+Route::get('/{type}/{slug}',[ArchiveController::class,'archive'])->name('archive');
 
 
 Route::middleware('auth')->group(function () {

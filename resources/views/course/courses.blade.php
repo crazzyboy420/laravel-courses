@@ -78,7 +78,7 @@
                             <div x-show="open" class="pt-6">
                                 <div class="space-y-2">
                                    @foreach($levels as $lavel)
-                                        <a href="{{route('level',$lavel->slug)}}" class="block text-gray-600 hover:text-indigo-500 transition text-sm"> {{$lavel->name}} <span class="text-xs text-gray-500">({{count($lavel->courses)}})</span></a>
+                                        <a href="{{route('archive',['lavel',$lavel->slug])}}" class="block text-gray-600 hover:text-indigo-500 transition text-sm"> {{$lavel->name}} <span class="text-xs text-gray-500">({{count($lavel->courses)}})</span></a>
                                     @endforeach
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
                             <div x-show="open" class="pt-6">
                                 <div class="space-y-2">
                                    @foreach($platform as $plat)
-                                        <a href="{{route('platform',$plat->slug)}}" class="block text-gray-600 hover:text-indigo-500 transition text-sm"> {{$plat->name}} <span class="text-xs text-gray-500">({{count($plat->courses)}})</span></a>
+                                        <a href="{{route('archive',['platform',$plat->slug])}}" class="block text-gray-600 hover:text-indigo-500 transition text-sm"> {{$plat->name}} <span class="text-xs text-gray-500">({{count($plat->courses)}})</span></a>
                                     @endforeach
                                 </div>
                             </div>
@@ -128,7 +128,7 @@
                             <div x-show="open" class="pt-6">
                                 <div class="space-y-2">
                                     @foreach($series as $series)
-                                        <a href="{{route('series',$series->slug)}}" class="block text-gray-600 hover:text-indigo-500 transition text-sm"> {{$series->name}} <span class="text-xs text-gray-500">({{count($series->courses)}})</span></a>
+                                        <a href="{{route('archive',['series',$series->slug])}}" class="block text-gray-600 hover:text-indigo-500 transition text-sm"> {{$series->name}} <span class="text-xs text-gray-500">({{count($series->courses)}})</span></a>
                                     @endforeach
                                 </div>
                             </div>
