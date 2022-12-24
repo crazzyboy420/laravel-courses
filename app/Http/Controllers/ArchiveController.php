@@ -68,4 +68,5 @@ class ArchiveController extends Controller
 
         return view('archive.single',['archive'=>$name,'courses'=>$courses]);
     }
+
 }

@@ -2,10 +2,13 @@
     <!--Courses Section-->
     <div class="mt-1 bg-gray">
         <div class="mx-auto container">
-
+            @php
+                $path = request()->path();
+               $path = explode('/', $path);
+            @endphp
 
             <div class="flex items-baseline justify-between pt-10">
-                <h1 class="text-lg font-bold tracking-tight text-gray-900">All {{request()->routeIs('courses')? 'Courses':'Videos'}}</h1>
+                <h1 class="text-lg font-bold tracking-tight text-gray-900">All {{$path[0] === 'courses'? 'Courses':'Videos'}}</h1>
                 <div class="flex items-center">
                     <div class="relative inline-block text-left">
                         <select name="sort" id="cars" class="focus-visible:outline-none py-1 px-2 shadow" form="carform">
@@ -26,23 +29,23 @@
                     <!-- Filters -->
                     <form class="w-3/12 block bg-white p-4 px-6 shadow rounded-sm" method="GET">
                         <h3 class="sr-only">Filters</h3>
-                        <div class="border-b border-gray-200 py-6">
+                        <div class="border-b border-gray-200 py-6" x-data="{open:true}">
                             <h3 class="-my-3 flow-root">
                                 <!-- Expand/collapse section button -->
-                                <button class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500" aria-controls="filter-section-0" aria-expanded="false">
+                                <div @click="open = !open" class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
                                     <span class="font-medium text-gray-900">Search</span>
                                     <span class="ml-6 flex items-center">
-                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" x-show="open">
+                        <svg  class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" x-show="open">
                           <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H3.75A.75.75 0 013 10z" clip-rule="evenodd"></path>
                         </svg>
-                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" x-show="! open" style="display: none;">
+                        <svg  class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" x-show="! open">
                           <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
                         </svg>
                       </span>
-                                </button>
+                                </div>
                             </h3>
                             <!-- Filter section, show/hide based on section state. -->
-                            <div class="pt-6">
+                            <div x-show="open" class="pt-6">
                                 <div class="space-y-2">
                                     <div class="relative mt-1 rounded-md shadow-sm">
                                         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -50,7 +53,7 @@
                                                 <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd"></path>
                                             </svg>
                                         </div>
-                                        <input type="text" class="block w-full rounded border border-gray-300 bg-white py-2 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm" placeholder="Enter keywords">
+                                        <input type="text" name="search" value="{{isset($_GET['search']) ? $_GET['search'] : ''}}"  class="block w-full rounded border border-gray-300 bg-white py-2 pl-10 pr-3 leading-5 placeholder-gray-500 focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm" placeholder="Enter keywords">
                                     </div>
                                 </div>
                             </div>
@@ -62,13 +65,13 @@
                         <div class="border-b border-gray-200 py-6" x-data="{open:true}">
                             <h3 class="-my-3 flow-root">
                                 <!-- Expand/collapse section button -->
-                                <button type="button" class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500" aria-controls="filter-section-0" aria-expanded="false">
+                                <button type="button" @click="open = !open" class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500" aria-controls="filter-section-0" aria-expanded="false">
                                     <span class="text-gray-900 font-bold">Level</span>
                                     <span class="ml-6 flex items-center">
-                        <svg x-on:click="open=false" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" x-show="open">
+                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" x-show="open">
                           <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H3.75A.75.75 0 013 10z" clip-rule="evenodd"></path>
                         </svg>
-                        <svg x-on:click="open=true" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" x-show="!open">
+                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" x-show="!open">
                           <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
                         </svg>
                       </span>
@@ -78,12 +81,84 @@
                             <div x-show="open" class="pt-6">
                                 <div class="space-y-2">
                                    @foreach($levels as $lavel)
-                                        <a href="{{route('archive',['lavel',$lavel->slug])}}" class="block text-gray-600 hover:text-indigo-500 transition text-sm"> {{$lavel->name}} <span class="text-xs text-gray-500">({{count($lavel->courses)}})</span></a>
+                                        <div class="flex items-center">
+                                            <input onchange="this.form.submit()" id="filter-level-{{$lavel->name}}" @if(array_key_exists('level',$_GET) && $_GET['level'] == $lavel->id ) checked @endif name="level" value="{{$lavel->id}}" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <label for="filter-level-{{$lavel->name}}" class="ml-3 text-sm text-gray-600">
+                                                {{$lavel->name}}
+                                                <span class="text-xs text-gray-500">({{count($lavel->courses)}})</span>
+                                            </label>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
+                        <script>
+                            var level = document.querySelectorAll('input[name=level]');
+                            level.forEach(function(checkbox) {
+                                checkbox.addEventListener('click', function() {
+                                    level.forEach(function(otherCheckbox) {
+                                        if (otherCheckbox !== checkbox) {
+                                            otherCheckbox.checked = false;
+                                        }
+                                    });
+                                });
+                            });
+                        </script>
+                        <div x-data="{ open: true }" class="border-b border-gray-200 py-6">
+                            <h3 class="-my-3 flow-root">
+                                <!-- Expand/collapse section button -->
+                                <button @click="open = ! open" type="button" class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500" aria-controls="filter-section-0" aria-expanded="false">
+                                    <span class="font-medium text-gray-900 font-bold">Duration</span>
+                                    <span class="ml-6 flex items-center">
+                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" x-show="open">
+    <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H3.75A.75.75 0 013 10z" clip-rule="evenodd"></path>
+</svg>
+                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" x-show="! open" style="display: none;">
+    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
+</svg>
+            </span>
+                                </button>
+                            </h3>
 
+                            <!-- Filter section, show/hide based on section state. -->
+                            <div x-show="open" class="pt-6">
+                                <div class="space-y-2">
+                                    <div class="flex items-center">
+                                        <input onchange="this.form.submit()" @if(array_key_exists('duration',$_GET) && $_GET['duration'] == 0 ) checked @endif id="filter-duration-1h-5h" name="duration" value="0" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-duration-1h-5h" class="ml-3 text-sm text-gray-600">
+                                            1-5 hours
+                                            <span class="text-xs text-gray-500">({{$oneToFive}})</span>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input onchange="this.form.submit()" id="filter-duration-5h-10h" name="duration" @if(array_key_exists('duration',$_GET) && $_GET['duration'] == 1 ) checked @endif value="1" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-duration-5h-10h" class="ml-3 text-sm text-gray-600">
+                                            5-10 hours
+                                            <span class="text-xs text-gray-500">({{$fiveToTen}})</span>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input onchange="this.form.submit()" id="filter-duration-10h+" name="duration" @if(array_key_exists('duration',$_GET) && $_GET['duration'] == 2 ) checked @endif value="2" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-duration-10h+" class="ml-3 text-sm text-gray-600">
+                                            10+ hours
+                                            <span class="text-xs text-gray-500">({{$tenPlus}})</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            var duration = document.querySelectorAll('input[name=duration]');
+                            duration.forEach(function(checkbox) {
+                                checkbox.addEventListener('click', function() {
+                                    duration.forEach(function(otherCheckbox) {
+                                        if (otherCheckbox !== checkbox) {
+                                            otherCheckbox.checked = false;
+                                        }
+                                    });
+                                });
+                            });
+                        </script>
                         <div class="border-b border-gray-200 py-6" x-data="{open:true}">
                             <h3 class="-my-3 flow-root">
                                 <!-- Expand/collapse section button -->
@@ -103,12 +178,29 @@
                             <div x-show="open" class="pt-6">
                                 <div class="space-y-2">
                                    @foreach($platform as $plat)
-                                        <a href="{{route('archive',['platform',$plat->slug])}}" class="block text-gray-600 hover:text-indigo-500 transition text-sm"> {{$plat->name}} <span class="text-xs text-gray-500">({{count($plat->courses)}})</span></a>
+                                        <div class="flex items-center">
+                                            <input  onchange="this.form.submit()" @if(array_key_exists('platform',$_GET) && $_GET['platform'] == $plat->id ) checked @endif  id="filter-level-{{$plat->name}}" value="{{$plat->id}}" name="platform" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <label for="filter-level-{{$plat->name}}" class="ml-3 text-sm text-gray-600">
+                                                {{$plat->name}}
+                                                <span class="text-xs text-gray-500">({{count($plat->courses)}})</span>
+                                            </label>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
-
+                        <script>
+                            var platform = document.querySelectorAll('input[name=platform]');
+                            platform.forEach(function(checkbox) {
+                                checkbox.addEventListener('click', function() {
+                                    platform.forEach(function(otherCheckbox) {
+                                        if (otherCheckbox !== checkbox) {
+                                            otherCheckbox.checked = false;
+                                        }
+                                    });
+                                });
+                            });
+                        </script>
                         <div x-data="{open:true}" class="border-b border-gray-200 py-6">
                             <h3 class="-my-3 flow-root">
                                 <!-- Expand/collapse section button -->
@@ -127,12 +219,30 @@
                             <!-- Filter section, show/hide based on section state. -->
                             <div x-show="open" class="pt-6">
                                 <div class="space-y-2">
-                                    @foreach($series as $series)
-                                        <a href="{{route('archive',['series',$series->slug])}}" class="block text-gray-600 hover:text-indigo-500 transition text-sm"> {{$series->name}} <span class="text-xs text-gray-500">({{count($series->courses)}})</span></a>
+                                    @foreach($series as $serise)
+                                        <div class="flex items-center">
+                                            <input onchange="this.form.submit()" @if(array_key_exists('series',$_GET) && $_GET['series'] ==  $serise->id ) checked @endif id="filter-level-{{$serise->name}}" name="series" value="{{$serise->id}}" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <label for="filter-level-{{ $serise->name}}" class="ml-3 text-sm text-gray-600">
+                                                {{ $serise->name}}
+                                                <span class="text-xs text-gray-500">({{count( $serise->courses)}})</span>
+                                            </label>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
+                        <script>
+                            var series = document.querySelectorAll('input[name=series]');
+                            series.forEach(function(checkbox) {
+                                checkbox.addEventListener('click', function() {
+                                    series.forEach(function(otherCheckbox) {
+                                        if (otherCheckbox !== checkbox) {
+                                            otherCheckbox.checked = false;
+                                        }
+                                    });
+                                });
+                            });
+                        </script>
                     </form>
                     <div class="w-9/12">
                         <ul role="list" class="space-y-6">

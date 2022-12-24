@@ -3,10 +3,6 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
-use App\Http\Controllers\TopicsController;
-use App\Http\Controllers\PlatformContrller;
-use App\Http\Controllers\LevelsController;
-use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArchiveController;
 /*
@@ -23,8 +19,7 @@ use App\Http\Controllers\ArchiveController;
 Route::get('/', [CourseController::class,'index'])->name('home');
 
 Route::get('/course/{slug}',[CourseController::class,'show'])->name('course');
-Route::get('/courses',[CourseController::class,'courses'])->name('courses');
-Route::get('/books',[CourseController::class,'books'])->name('books');
+Route::get('/{course}',[CourseController::class,'courses'])->name('courses');
 Route::get('/{type}/{slug}',[ArchiveController::class,'archive'])->name('archive');
 
 

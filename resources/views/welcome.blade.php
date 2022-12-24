@@ -47,7 +47,7 @@
                @endforeach
            </div>
            <div class="flex justify-center mt-12 mb-12">
-               <a href="{{route('courses')}}">
+               <a href="{{route('courses','courses')}}">
                    <button class="btn-primary text-white h-14 w-32"> Browse all </button>
                </a>
            </div>
