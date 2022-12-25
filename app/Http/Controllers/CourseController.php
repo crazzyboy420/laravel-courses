@@ -30,11 +30,6 @@ class CourseController extends Controller
         $seriess  = $request->series;
         $duration  = $request->duration;
 
-        if($duration==0 && isset($duration)){
-          $positiveVal = true;
-        }else{
-            $positiveVal = $duration;
-        }
 
         $questions = Series::with('courses');
 
@@ -53,25 +48,24 @@ class CourseController extends Controller
 
             //courses
             $courses = Course::where('type',0)
-                ->when($search,function($query)use($search){
-                    return $query->where('title','like','%'.$search.'%');
+                ->where('title','like','%'.$request->search.'%')
+                ->when($plat,function($qurey)use($plat){
+                    return $qurey->whereIn('platform_id',$plat);
+                })
+                ->when($duration,function($qurey)use($duration){
+                    return $qurey->whereIn('duration',$duration);
                 })
                 ->when($level,function($qurey)use($level){
-                   return $qurey->where('level_id',$level);
-                })
-                ->when($plat,function($qurey)use($plat){
-                    return $qurey->where('platform_id',$plat);
-                })
-                ->when($positiveVal,function($qurey)use($duration){
-                    return $qurey->where('duration',$duration);
+                    return $qurey->whereIn('level_id',$level);
                 })
                 ->with(['platform','topics','submittedBy','level','authors','series'])
                 ->when($seriess,function($query)use($seriess){
                     $query->whereHas('series', function($query) use($seriess) {
-                        $query->where('series_id', $seriess);
+                        $query->whereIn('series_id', $seriess);
                     });
                 })
                 ->paginate(10);
+
             $platform = platform::with(['courses'=>function ($query) {
                 $query->where('type', '=', '0');
             }])->get();
@@ -90,22 +84,21 @@ class CourseController extends Controller
             $tenPlus = Course::where('type',1)
                 ->where('duration',2)->count();
 
-
             $courses = Course::where('type',1)
                 ->where('title','like','%'.$request->search.'%')
-                ->when($level,function($qurey)use($level){
-                    return $qurey->where('level_id',$level);
-                })
                 ->when($plat,function($qurey)use($plat){
-                    return $qurey->where('platform_id',$plat);
+                    return $qurey->whereIn('platform_id',$plat);
                 })
-                ->when($positiveVal,function($qurey)use($duration){
-                    return $qurey->where('duration',$duration);
+                ->when($duration,function($qurey)use($duration){
+                    return $qurey->whereIn('duration',$duration);
+                })
+                ->when($level,function($qurey)use($level){
+                    return $qurey->whereIn('level_id',$level);
                 })
                 ->with(['platform','topics','submittedBy','level','authors','series'])
                 ->when($seriess,function($query)use($seriess){
                     $query->whereHas('series', function($query) use($seriess) {
-                        $query->where('series_id', $seriess);
+                        $query->whereIn('series_id', $seriess);
                     });
                 })
                 ->paginate(10);

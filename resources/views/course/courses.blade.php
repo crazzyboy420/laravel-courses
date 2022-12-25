@@ -82,7 +82,7 @@
                                 <div class="space-y-2">
                                    @foreach($levels as $lavel)
                                         <div class="flex items-center">
-                                            <input onchange="this.form.submit()" id="filter-level-{{$lavel->name}}" @if(array_key_exists('level',$_GET) && $_GET['level'] == $lavel->id ) checked @endif name="level" value="{{$lavel->id}}" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input onchange="this.form.submit()" id="filter-level-{{$lavel->name}}" @if(isset($_GET['level']) && in_array($lavel->id,$_GET['level'])) checked @endif name="level[]" value="{{$lavel->id}}" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                             <label for="filter-level-{{$lavel->name}}" class="ml-3 text-sm text-gray-600">
                                                 {{$lavel->name}}
                                                 <span class="text-xs text-gray-500">({{count($lavel->courses)}})</span>
@@ -92,18 +92,18 @@
                                 </div>
                             </div>
                         </div>
-                        <script>
-                            var level = document.querySelectorAll('input[name=level]');
-                            level.forEach(function(checkbox) {
-                                checkbox.addEventListener('click', function() {
-                                    level.forEach(function(otherCheckbox) {
-                                        if (otherCheckbox !== checkbox) {
-                                            otherCheckbox.checked = false;
-                                        }
-                                    });
-                                });
-                            });
-                        </script>
+{{--                        <script>--}}
+{{--                            var level = document.querySelectorAll('input[name=level]');--}}
+{{--                            level.forEach(function(checkbox) {--}}
+{{--                                checkbox.addEventListener('click', function() {--}}
+{{--                                    level.forEach(function(otherCheckbox) {--}}
+{{--                                        if (otherCheckbox !== checkbox) {--}}
+{{--                                            otherCheckbox.checked = false;--}}
+{{--                                        }--}}
+{{--                                    });--}}
+{{--                                });--}}
+{{--                            });--}}
+{{--                        </script>--}}
                         <div x-data="{ open: true }" class="border-b border-gray-200 py-6">
                             <h3 class="-my-3 flow-root">
                                 <!-- Expand/collapse section button -->
@@ -124,21 +124,21 @@
                             <div x-show="open" class="pt-6">
                                 <div class="space-y-2">
                                     <div class="flex items-center">
-                                        <input onchange="this.form.submit()" @if(array_key_exists('duration',$_GET) && $_GET['duration'] == 0 ) checked @endif id="filter-duration-1h-5h" name="duration" value="0" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <input onchange="this.form.submit()" @if(isset($_GET['duration']) && in_array(0,$_GET['duration'])) checked @endif id="filter-duration-1h-5h" name="duration[]" value="0" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                         <label for="filter-duration-1h-5h" class="ml-3 text-sm text-gray-600">
                                             1-5 hours
                                             <span class="text-xs text-gray-500">({{$oneToFive}})</span>
                                         </label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input onchange="this.form.submit()" id="filter-duration-5h-10h" name="duration" @if(array_key_exists('duration',$_GET) && $_GET['duration'] == 1 ) checked @endif value="1" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <input onchange="this.form.submit()" id="filter-duration-5h-10h" name="duration[]" @if(isset($_GET['duration']) && in_array(1,$_GET['duration'])) checked @endif  value="1" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                         <label for="filter-duration-5h-10h" class="ml-3 text-sm text-gray-600">
                                             5-10 hours
                                             <span class="text-xs text-gray-500">({{$fiveToTen}})</span>
                                         </label>
                                     </div>
                                     <div class="flex items-center">
-                                        <input onchange="this.form.submit()" id="filter-duration-10h+" name="duration" @if(array_key_exists('duration',$_GET) && $_GET['duration'] == 2 ) checked @endif value="2" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <input onchange="this.form.submit()" id="filter-duration-10h+" name="duration[]" @if(isset($_GET['duration']) && in_array(2,$_GET['duration'])) checked @endif value="2" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                         <label for="filter-duration-10h+" class="ml-3 text-sm text-gray-600">
                                             10+ hours
                                             <span class="text-xs text-gray-500">({{$tenPlus}})</span>
@@ -147,18 +147,18 @@
                                 </div>
                             </div>
                         </div>
-                        <script>
-                            var duration = document.querySelectorAll('input[name=duration]');
-                            duration.forEach(function(checkbox) {
-                                checkbox.addEventListener('click', function() {
-                                    duration.forEach(function(otherCheckbox) {
-                                        if (otherCheckbox !== checkbox) {
-                                            otherCheckbox.checked = false;
-                                        }
-                                    });
-                                });
-                            });
-                        </script>
+{{--                        <script>--}}
+{{--                            var duration = document.querySelectorAll('input[name=duration]');--}}
+{{--                            duration.forEach(function(checkbox) {--}}
+{{--                                checkbox.addEventListener('click', function() {--}}
+{{--                                    duration.forEach(function(otherCheckbox) {--}}
+{{--                                        if (otherCheckbox !== checkbox) {--}}
+{{--                                            otherCheckbox.checked = false;--}}
+{{--                                        }--}}
+{{--                                    });--}}
+{{--                                });--}}
+{{--                            });--}}
+{{--                        </script>--}}
                         <div class="border-b border-gray-200 py-6" x-data="{open:true}">
                             <h3 class="-my-3 flow-root">
                                 <!-- Expand/collapse section button -->
@@ -179,7 +179,7 @@
                                 <div class="space-y-2">
                                    @foreach($platform as $plat)
                                         <div class="flex items-center">
-                                            <input  onchange="this.form.submit()" @if(array_key_exists('platform',$_GET) && $_GET['platform'] == $plat->id ) checked @endif  id="filter-level-{{$plat->name}}" value="{{$plat->id}}" name="platform" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input  onchange="this.form.submit()" @if(isset($_GET['platform']) && in_array($plat->id,$_GET['platform'])) checked @endif  id="filter-level-{{$plat->name}}" value="{{$plat->id}}" name="platform[]" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                             <label for="filter-level-{{$plat->name}}" class="ml-3 text-sm text-gray-600">
                                                 {{$plat->name}}
                                                 <span class="text-xs text-gray-500">({{count($plat->courses)}})</span>
@@ -221,7 +221,7 @@
                                 <div class="space-y-2">
                                     @foreach($series as $serise)
                                         <div class="flex items-center">
-                                            <input onchange="this.form.submit()" @if(array_key_exists('series',$_GET) && $_GET['series'] ==  $serise->id ) checked @endif id="filter-level-{{$serise->name}}" name="series" value="{{$serise->id}}" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <input onchange="this.form.submit()" @if(isset($_GET['series']) && in_array($serise->id,$_GET['series'])) checked @endif id="filter-level-{{$serise->name}}" name="series[]" value="{{$serise->id}}" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                                             <label for="filter-level-{{ $serise->name}}" class="ml-3 text-sm text-gray-600">
                                                 {{ $serise->name}}
                                                 <span class="text-xs text-gray-500">({{count( $serise->courses)}})</span>
@@ -283,13 +283,13 @@
                                         <div class="mt-4 space-y-1 text-sm text-gray-700 line-clamp-5">
                                             @php
                                                 // Split the paragraph into an array of lines
-                                                $lines = explode("\n", $course->description);
+                                                $lines = explode(".", $course->description);
 
                                                 // Get the first two lines
-                                                $firstTwoLines = array_slice($lines, 0, 2);
+                                                $firstTwoLines = array_slice($lines, 0, 5);
 
                                                 // Join the lines back into a single string
-                                                $firstTwoLinesString = implode("\n", $firstTwoLines);
+                                                $firstTwoLinesString = implode(".", $firstTwoLines);
                                             @endphp
                                             <p>{{  $firstTwoLinesString }}</p>
                                         </div>
