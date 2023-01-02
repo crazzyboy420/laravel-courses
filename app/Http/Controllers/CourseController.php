@@ -114,9 +114,6 @@ class CourseController extends Controller
             $Series = Series::with(['courses'=>function ($query) {
                 $query->where('type', '=', '1');
             }])->get();
-            $reviews = platform::with(['courses'=>function ($query) {
-                $query->where('type', '=', '1');
-            }])->get();
         }
 
         return view('course.courses',[
